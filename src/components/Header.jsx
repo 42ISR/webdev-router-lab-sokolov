@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [query, setQuery] = useState('');
@@ -16,9 +17,10 @@ export default function Header() {
         </a>
 
         <nav className="nav">
-          <a href="/" className="nav-item">Главная</a>
-          <a href="/movies" className="nav-item">Фильмы</a>
-          <a href="/about" className="nav-item">О проекте</a>
+          <NavLink to="/" className="nav-item">Главная</NavLink>
+          <NavLink to="/movies" className="nav-item">Фильмы</NavLink>
+          <NavLink to="/about" className="nav-item">О проекте</NavLink>
+
         </nav>
 
         <form className="search" onSubmit={handleSubmit}>
