@@ -4,8 +4,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 export default function Header() {
   const [query, setQuery] = useState('');
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  const navigate = useNavigate()
+  function handleSearchKeyDown(e) {
+    if (e.key === 'Enter' && e.target.value.trim()) {
+      navigate('/search?q=' + encodeURIComponent(e.target.value.trim()))
+      e.target.value = '';
+    }
   }
 
   return (
@@ -20,17 +24,13 @@ export default function Header() {
           <NavLink to="/" className="nav-item">Главная</NavLink>
           <NavLink to="/movies" className="nav-item">Фильмы</NavLink>
           <NavLink to="/about" className="nav-item">О проекте</NavLink>
+          <NavLink to="/contacts" className="nav-item">Контакты</NavLink>
 
         </nav>
 
-        <form className="search" onSubmit={handleSubmit}>
-          <span className="search-icon">⌕</span>
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Поиск фильмов"
-          />
-        </form>
+        <div className="header-search">
+          <input type="text" placeholder="Найти фильм" onKeyDown={handleSearchKeyDown} />
+        </div>
       </div>
     </header>
   );
